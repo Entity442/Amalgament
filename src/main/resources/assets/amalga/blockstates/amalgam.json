@@ -1,0 +1,14 @@
+{
+  "variants": {
+    "":
+    [
+      {"model": "amalga:block/amalgam"},
+      {"model": "amalga:block/amalgam",
+        "y": 90},
+      {"model": "amalga:block/amalgam",
+        "y": 180},
+      {"model": "amalga:block/amalgam",
+        "y": 270}
+    ]
+  }
+}
