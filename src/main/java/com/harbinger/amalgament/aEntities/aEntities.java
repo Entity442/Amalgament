@@ -23,7 +23,7 @@ public class aEntities {
     public static final RegistryObject<EntityType<Glutton>> GLUTTON =
             AMALGA_ENTITIES.register("glutton",
                     () -> EntityType.Builder.of(Glutton::new, MobCategory.MONSTER)
-                            .sized(0.8f, 0.8f)
-                            .build(new ResourceLocation(amalgament.MOD_ID, "raccoon").toString()));
+                            .sized(1.2f, 1.2f)
+                            .build(new ResourceLocation(amalgament.MOD_ID, "glutton").toString()));
 
 }

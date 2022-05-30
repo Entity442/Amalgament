@@ -18,6 +18,7 @@ public class aCommonConfig {
 
     static {
         BUILDER.push("Configs for the Amalgament");
+
         STRIKE = BUILDER.comment("The lightning damage is based on the " +
                 "hp of the entity the lower the values the more damage it does " +
                 "while the value of 1 kills it and 0 disables the damage").define("Lightning Strike", 4);

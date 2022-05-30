@@ -4,10 +4,7 @@ import com.harbinger.amalgament.config.aCommonConfig;
 import com.harbinger.amalgament.procedures.ColdTolerance;
 import com.harbinger.amalgament.procedures.LightningStrike;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LightningBolt;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
@@ -34,6 +31,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 public class Glutton extends Monster implements IAnimatable {
     private AnimationFactory factory = new AnimationFactory(this);
+
     public Glutton(EntityType<? extends Monster> p_33002_, Level p_33003_) {
         super(p_33002_, p_33003_);
     }
@@ -43,8 +41,9 @@ public class Glutton extends Monster implements IAnimatable {
                 .add(Attributes.MAX_HEALTH, aCommonConfig.GLUTTON_HP.get() * aCommonConfig.GLOBAL_HEALTH.get())
                 .add(Attributes.ATTACK_DAMAGE, aCommonConfig.GLUTTON_DAMAGE.get() * aCommonConfig.GLOBAL_DAMAGE.get())
                 .add(Attributes.FOLLOW_RANGE, aCommonConfig.GLUTTON_RANGE.get())
+                .add(Attributes.MOVEMENT_SPEED, 0.3)
                 .add(Attributes.ATTACK_SPEED, 0.3)
-                .add(Attributes.MOVEMENT_SPEED, 0.3).build();
+                .add(Attributes.ATTACK_KNOCKBACK, 2).build();
     }
 
 
@@ -77,9 +76,10 @@ public class Glutton extends Monster implements IAnimatable {
             return PlayState.CONTINUE;
         }
 
-
         event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.glutton.idle", true));
         return PlayState.CONTINUE;
+
+
     }
 
 
@@ -106,7 +106,5 @@ public class Glutton extends Monster implements IAnimatable {
         super.thunderHit(serverWorld, lightningBolt);
         LightningStrike.execute(this);
     }
-
-
 
 }
