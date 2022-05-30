@@ -1,10 +1,10 @@
 package com.harbinger.amalgament.aEntities.Entities;
 
+import com.harbinger.amalgament.aEntities.AmalgamEntity;
 import com.harbinger.amalgament.config.aCommonConfig;
-import com.harbinger.amalgament.procedures.ColdTolerance;
-import com.harbinger.amalgament.procedures.LightningStrike;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
@@ -22,6 +22,7 @@ import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.IAnimationTickable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
 import software.bernie.geckolib3.core.controller.AnimationController;
@@ -29,7 +30,7 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-public class Glutton extends Monster implements IAnimatable {
+public class Glutton extends AmalgamEntity implements IAnimatable , IAnimationTickable {
     private AnimationFactory factory = new AnimationFactory(this);
 
     public Glutton(EntityType<? extends Monster> p_33002_, Level p_33003_) {
@@ -75,13 +76,13 @@ public class Glutton extends Monster implements IAnimatable {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.glutton.walk", true));
             return PlayState.CONTINUE;
         }
-
+            if (isDeadOrDying()) {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.glutton.melee", false));
+                return PlayState.CONTINUE;
+            }
         event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.glutton.idle", true));
         return PlayState.CONTINUE;
-
-
     }
-
 
 
     @Override
@@ -95,16 +96,8 @@ public class Glutton extends Monster implements IAnimatable {
     }
 
 
-
     @Override
-    public void baseTick() {
-        super.baseTick();
-        ColdTolerance.execute(this.level, this.getX(), this.getY(), this.getZ(), this);
+    public int tickTimer() {
+        return tickCount;
     }
-    @Override
-    public void thunderHit(ServerLevel serverWorld, LightningBolt lightningBolt) {
-        super.thunderHit(serverWorld, lightningBolt);
-        LightningStrike.execute(this);
-    }
-
 }
