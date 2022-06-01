@@ -13,7 +13,7 @@ import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 public class GluttonRenderer extends GeoEntityRenderer<Glutton> {
     public GluttonRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new GluttonModel());
-        this.shadowRadius = 0.3f;
+        this.shadowRadius = 1f;
     }
     @Override
     public ResourceLocation getTextureLocation(Glutton instance) {
