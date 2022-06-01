@@ -1,5 +1,6 @@
 package com.harbinger.amalgament.aBlocks;
 
+import com.harbinger.amalgament.aBlocks.custom.AmalgaSpread;
 import com.harbinger.amalgament.aCore.aCreativeTabs;
 import com.harbinger.amalgament.aItems.aItems;
 import com.harbinger.amalgament.amalgament;
@@ -34,6 +35,8 @@ public class aBlocks {
 
     public static final RegistryObject<Block> AMALGAM = registerBlock("amalgam",
             () -> new Block(BlockBehaviour.Properties.of(Material.DIRT).strength(2f ,2f)));
+    public static final RegistryObject<Block> AMALGAM_SPREAD = registerBlock("amalgam_spread",
+            AmalgaSpread::new);
 
 
 }
