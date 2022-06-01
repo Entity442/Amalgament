@@ -1,0 +1,21 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "amalga:block/amalgam_top_layer",
+		"particle": "amalga:block/amalgam_top_layer"
+	},
+	"elements": [
+		{
+			"from": [-0.05, -15, -0.05],
+			"to": [16.05, 0.05, 16.05],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 14.95], "texture": "#0"},
+				"east": {"uv": [0, 0, 16, 14.95], "texture": "#0"},
+				"south": {"uv": [0, 0, 16, 14.95], "texture": "#0"},
+				"west": {"uv": [0, 0, 16, 14.95], "texture": "#0"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#0"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#0"}
+			}
+		}
+	]
+}

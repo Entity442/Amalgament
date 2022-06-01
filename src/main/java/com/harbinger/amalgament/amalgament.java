@@ -6,6 +6,8 @@ import com.harbinger.amalgament.aEntities.aEntities;
 import com.harbinger.amalgament.aItems.aItems;
 import com.harbinger.amalgament.config.aClientConfig;
 import com.harbinger.amalgament.config.aCommonConfig;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -41,6 +43,9 @@ public class amalgament
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, aCommonConfig.SPEC, "amalgament-common.toml");
     }
     private void onClientSetup(FMLClientSetupEvent event) {
+        ItemBlockRenderTypes.setRenderLayer(aBlocks.AMALGAM_SPREAD.get(), RenderType.cutout());
+
+
 
         EntityRenderers.register(aEntities.GLUTTON.get(), GluttonRenderer::new);
 
