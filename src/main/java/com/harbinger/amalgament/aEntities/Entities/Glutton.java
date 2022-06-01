@@ -1,5 +1,6 @@
 package com.harbinger.amalgament.aEntities.Entities;
 
+import com.harbinger.amalgament.aEntities.AI.WaterLeaping;
 import com.harbinger.amalgament.aEntities.AmalgamEntity;
 import com.harbinger.amalgament.config.aCommonConfig;
 import net.minecraft.world.entity.EntityType;
@@ -7,7 +8,6 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
@@ -42,7 +42,7 @@ public class Glutton extends AmalgamEntity implements IAnimatable , IAnimationTi
                 .add(Attributes.MAX_HEALTH, aCommonConfig.GLUTTON_HP.get() * aCommonConfig.GLOBAL_HEALTH.get())
                 .add(Attributes.ATTACK_DAMAGE, aCommonConfig.GLUTTON_DAMAGE.get() * aCommonConfig.GLOBAL_DAMAGE.get())
                 .add(Attributes.FOLLOW_RANGE, aCommonConfig.GLUTTON_RANGE.get())
-                .add(Attributes.MOVEMENT_SPEED, 0.3)
+                .add(Attributes.MOVEMENT_SPEED, 0.25)
                 .add(Attributes.ATTACK_SPEED, 0.3)
                 .add(Attributes.ATTACK_KNOCKBACK, 2).build();
     }
@@ -60,7 +60,7 @@ public class Glutton extends AmalgamEntity implements IAnimatable , IAnimationTi
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
         this.goalSelector.addGoal(2,new HurtByTargetGoal(this));
         this.goalSelector.addGoal(3, new RandomStrollGoal(this, 0.8));
-        this.goalSelector.addGoal(4, new FloatGoal(this));
+        this.goalSelector.addGoal(4, new WaterLeaping(this, 0.6f));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
 
         super.registerGoals();
@@ -72,14 +72,28 @@ public class Glutton extends AmalgamEntity implements IAnimatable , IAnimationTi
 
 
         private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if (event.isMoving()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.glutton.walk", true));
-            return PlayState.CONTINUE;
-        }
+            if (isAggressive() && event.isMoving()) {
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.glutton.walk", true));
+                    return PlayState.CONTINUE;
+        }else if (event.isMoving()) {
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.glutton.walk", true));
+                    return PlayState.CONTINUE;
+            }
+
             if (isDeadOrDying()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.glutton.melee", false));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.glutton.death", false));
                 return PlayState.CONTINUE;
             }
+
+            if (isInWater() && isAggressive()) {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.glutton.swim", true));
+                return PlayState.CONTINUE;
+            }
+            if (isInWater()) {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.glutton.water_idle", true));
+                return PlayState.CONTINUE;
+            }
+
         event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.glutton.idle", true));
         return PlayState.CONTINUE;
     }

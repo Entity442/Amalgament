@@ -35,7 +35,7 @@ public class aCommonConfig {
         GLUTTON_DAMAGE = BUILDER
                 .define("damage", 8);
         GLUTTON_RANGE = BUILDER
-                .define("range", 16);
+                .define("range", 32);
 
 
 
