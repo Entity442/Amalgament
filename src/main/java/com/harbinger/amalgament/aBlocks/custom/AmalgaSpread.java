@@ -3,14 +3,13 @@ package com.harbinger.amalgament.aBlocks.custom;
 import com.harbinger.amalgament.aBlocks.aBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -24,15 +23,18 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.Random;
 
-public class AmalgaSpread extends Block implements SimpleWaterloggedBlock {
+public class AmalgaSpread extends FlowerBlock implements SimpleWaterloggedBlock {
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public AmalgaSpread() {
-        super(BlockBehaviour.Properties.of(Material.LEAVES).strength(0,0));
+        super(MobEffects.MOVEMENT_SPEED, 100, BlockBehaviour.Properties.of(Material.PLANT).noCollission().sound(SoundType.GRASS).strength(0f, 0f));
         this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false));
 
     }
 
+    public BlockBehaviour.OffsetType getOffsetType() {
+        return OffsetType.NONE;
+    }
 
     public VoxelShape getShape(BlockState p_57291_, BlockGetter p_57292_, BlockPos p_57293_, CollisionContext p_57294_) {
         return Block.box(0.1D, 0.0D, 0.1D, 15.9D, 1.0D, 15.9D);
@@ -56,7 +58,8 @@ public class AmalgaSpread extends Block implements SimpleWaterloggedBlock {
             return world.getBlockState(new BlockPos(x, y - 1, z)).getDestroySpeed(world, new BlockPos(x, y, z)) <= 1.8
                     && world.getBlockState(new BlockPos(x, y - 1, z)).canOcclude()
                     && !(((world.getBlockState(new BlockPos(x, y - 1, z))).getBlock() == Blocks.MAGMA_BLOCK)
-            || ((world.getBlockState(new BlockPos(x, y - 1, z))).getBlock() == aBlocks.AMALGAM_SPREAD.get()));
+            || ((world.getBlockState(new BlockPos(x, y - 1, z))).getBlock() == aBlocks.AMALGAM_SPREAD.get())
+            || ((world.getBlockState(new BlockPos(x, y - 1, z))).getBlock() == aBlocks.AMALGAM.get()));
         }
     }
 
@@ -96,57 +99,10 @@ public class AmalgaSpread extends Block implements SimpleWaterloggedBlock {
 
     public static class Update {
         public static void execute(LevelAccessor world, double x, double y, double z) {
-            if ((world.getBlockState(new BlockPos(x + 1, y, z))).getMaterial() == net.minecraft.world.level.material.Material.AIR) {
-                if (Math.random() < 0.1) {
-                    world.setBlock(new BlockPos(x + 1, y, z), aBlocks.AMALGAM_SPREAD.get().defaultBlockState(), 3);
-                }
-            } else if ((world.getBlockState(new BlockPos(x - 1, y, z))).getMaterial() == net.minecraft.world.level.material.Material.AIR) {
-                if (Math.random() < 0.1) {
-                    world.setBlock(new BlockPos(x - 1, y, z), aBlocks.AMALGAM_SPREAD.get().defaultBlockState(), 3);
-                }
-            } else if ((world.getBlockState(new BlockPos(x, y, z - 1))).getMaterial() == net.minecraft.world.level.material.Material.AIR) {
-                if (Math.random() < 0.1) {
-                    world.setBlock(new BlockPos(x, y, z - 1), aBlocks.AMALGAM_SPREAD.get().defaultBlockState(), 3);
-                }
-            } else if ((world.getBlockState(new BlockPos(x, y, z + 1))).getMaterial() == net.minecraft.world.level.material.Material.AIR) {
-                if (Math.random() < 0.1) {
-                    world.setBlock(new BlockPos(x, y, z + 1), aBlocks.AMALGAM_SPREAD.get().defaultBlockState(), 3);
-                }
-            }
-
-            else if ((world.getBlockState(new BlockPos(x, y + 1, z + 1))).getMaterial() == net.minecraft.world.level.material.Material.AIR) {
-                if (Math.random() < 0.1) {
-                    world.setBlock(new BlockPos(x, y + 1, z + 1), aBlocks.AMALGAM_SPREAD.get().defaultBlockState(), 3);
-                }
-            }else if ((world.getBlockState(new BlockPos(x, y + 1, z - 1))).getMaterial() == net.minecraft.world.level.material.Material.AIR) {
-                if (Math.random() < 0.1) {
-                    world.setBlock(new BlockPos(x, y + 1, z - 1), aBlocks.AMALGAM_SPREAD.get().defaultBlockState(), 3);
-                }
-            }else if ((world.getBlockState(new BlockPos(x + 1, y + 1, z))).getMaterial() == net.minecraft.world.level.material.Material.AIR) {
-                if (Math.random() < 0.1) {
-                    world.setBlock(new BlockPos(x + 1, y + 1, z ), aBlocks.AMALGAM_SPREAD.get().defaultBlockState(), 3);
-                }
-            }else if ((world.getBlockState(new BlockPos(x - 1, y + 1, z))).getMaterial() == net.minecraft.world.level.material.Material.AIR) {
-                if (Math.random() < 0.1) {
-                    world.setBlock(new BlockPos(x - 1, y + 1, z), aBlocks.AMALGAM_SPREAD.get().defaultBlockState(), 3);
-                }
-            }
-
-            else if ((world.getBlockState(new BlockPos(x, y - 1, z + 1))).getMaterial() == net.minecraft.world.level.material.Material.AIR) {
-                if (Math.random() < 0.1) {
-                    world.setBlock(new BlockPos(x, y - 1, z + 1), aBlocks.AMALGAM_SPREAD.get().defaultBlockState(), 3);
-                }
-            }else if ((world.getBlockState(new BlockPos(x, y - 1, z - 1))).getMaterial() == net.minecraft.world.level.material.Material.AIR) {
-                if (Math.random() < 0.1) {
-                    world.setBlock(new BlockPos(x, y - 1, z - 1), aBlocks.AMALGAM_SPREAD.get().defaultBlockState(), 3);
-                }
-            }else if ((world.getBlockState(new BlockPos(x + 1, y - 1, z))).getMaterial() == net.minecraft.world.level.material.Material.AIR) {
-                if (Math.random() < 0.1) {
-                    world.setBlock(new BlockPos(x + 1, y - 1, z ), aBlocks.AMALGAM_SPREAD.get().defaultBlockState(), 3);
-                }
-            }else if ((world.getBlockState(new BlockPos(x - 1, y + 1, z))).getMaterial() == net.minecraft.world.level.material.Material.AIR) {
-                if (Math.random() < 0.1) {
-                    world.setBlock(new BlockPos(x - 1, y - 1, z), aBlocks.AMALGAM_SPREAD.get().defaultBlockState(), 3);
+            if (Math.random() < 0.01) {
+                if ((world.getBlockState(new BlockPos(x, y - 1, z)).getDestroySpeed(world, new BlockPos(x, y, z)) <= 1.8
+                        && world.getBlockState(new BlockPos(x, y - 1, z)).canOcclude())) {
+                    world.setBlock(new BlockPos(x, y - 1, z), aBlocks.AMALGAM.get().defaultBlockState(), 3);
                 }
             }
         }
