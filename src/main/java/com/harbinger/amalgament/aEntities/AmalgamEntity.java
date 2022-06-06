@@ -33,8 +33,11 @@ public class AmalgamEntity extends Monster {
         LightningStrike.execute(this);
     }
     @Override
-    public void die(DamageSource source) {
-        super.die(source);
+    public void die(DamageSource event) {
+        super.die(event);
+
+        }
 
     }
-}
+
+

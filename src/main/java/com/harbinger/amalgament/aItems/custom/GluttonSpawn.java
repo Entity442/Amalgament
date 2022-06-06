@@ -1,6 +1,6 @@
 package com.harbinger.amalgament.aItems.custom;
 
-import com.harbinger.amalgament.aEntities.Entities.Glutton;
+import com.harbinger.amalgament.aEntities.Entities.monsters.Glutton;
 import com.harbinger.amalgament.aEntities.aEntities;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;

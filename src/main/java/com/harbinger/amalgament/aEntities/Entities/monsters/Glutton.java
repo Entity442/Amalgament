@@ -1,4 +1,4 @@
-package com.harbinger.amalgament.aEntities.Entities;
+package com.harbinger.amalgament.aEntities.Entities.monsters;
 
 import com.harbinger.amalgament.aEntities.AmalgamEntity;
 import com.harbinger.amalgament.config.aCommonConfig;
@@ -47,7 +47,7 @@ public class Glutton extends AmalgamEntity implements IAnimatable , IAnimationTi
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.2 ,false));
+        this.goalSelector.addGoal(1, new MeleeAttackGoal(this,1.2,true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Mob.class, 5, false, false, (p_28879_) -> {
             return p_28879_ instanceof Enemy && !((p_28879_ instanceof Creeper) || (p_28879_ instanceof Glutton));
         }));
@@ -74,8 +74,8 @@ public class Glutton extends AmalgamEntity implements IAnimatable , IAnimationTi
                     return PlayState.CONTINUE;
             }
 
-            if (isDeadOrDying()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.glutton.death", false));
+            if ((this.dead || this.getHealth() < 0.01 || this.isDeadOrDying())) {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("death", false));
                 return PlayState.CONTINUE;
             }
 

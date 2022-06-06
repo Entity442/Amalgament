@@ -37,48 +37,65 @@ public class Amalgam extends Block {
     }
     public static class GoreSpread {
         public static void execute(LevelAccessor world, double x, double y, double z) {
+            double posX = 0;
+            double posY = 0;
+            double posZ = 0;
+            boolean block = false;
+            if ((Math.random() < 0.2) &&
+                    ((world.getBlockState(new BlockPos(x, y + 1, z))).getBlock() == Blocks.AIR) ||
+                    ((world.getBlockState(new BlockPos(x, y - 1, z))).getMaterial() == Material.AIR)||
+                    ((world.getBlockState(new BlockPos(x - 1, y, z))).getMaterial() == Material.AIR)||
+                    ((world.getBlockState(new BlockPos(x + 1, y, z))).getMaterial() == Material.AIR)||
+                    ((world.getBlockState(new BlockPos(x, y, z + 1))).getMaterial() == Material.AIR)||
+                    ((world.getBlockState(new BlockPos(x, y, z - 1))).getMaterial() == Material.AIR)) {
 
-            if ((Math.random() < 0.2) && (world.getBlockState(new BlockPos(x, y + 2, z))).getBlock() == Blocks.AIR) {
 
-             if (world.getBlockState(new BlockPos((int) (1 + x), (int) y, (int) z))
-                    .canOcclude() && world.getBlockState(new BlockPos((int) (1 + x), (int) y, (int) z))
-                    .getDestroySpeed(world, new BlockPos((int) (1 + x), (int) y, (int) z)) <= 1.5) {
-                    world.setBlock(new BlockPos((int) (1 + x), (int) y, (int) z), aBlocks.AMALGAM.get().defaultBlockState(), 3);
-            }
-            if (world.getBlockState(new BlockPos((int) (x - 1), (int) y, (int) z))
-                    .canOcclude() && world.getBlockState(new BlockPos((int) (x - 1), (int) y, (int) z))
-                    .getDestroySpeed(world, new BlockPos((int) (x - 1), (int) y, (int) z)) <= 1.5) {
-                    world.setBlock(new BlockPos((int) (x - 1), (int) y, (int) z), aBlocks.AMALGAM.get().defaultBlockState(), 3);
-            }
-            if (world.getBlockState(new BlockPos((int) x, (int) (1 + y), (int) z))
-                    .canOcclude() && world.getBlockState(new BlockPos((int) x, (int) (1 + y), (int) z))
-                    .getDestroySpeed(world, new BlockPos((int) x, (int) (1 + y), (int) z)) <= 1.5) {
-                    world.setBlock(new BlockPos((int) x, (int) (1 + y), (int) z), aBlocks.AMALGAM.get().defaultBlockState(), 3);
-            }
-            if (world.getBlockState(new BlockPos((int) x, (int) (y - 1), (int) z))
-                    .canOcclude() && world.getBlockState(new BlockPos((int) x, (int) (y - 1), (int) z))
-                    .getDestroySpeed(world, new BlockPos((int) x, (int) (y - 1), (int) z)) <= 1.5) {
-                    world.setBlock(new BlockPos((int) x, (int) (y - 1), (int) z), aBlocks.AMALGAM.get().defaultBlockState(), 3);
-            }
-            if (world.getBlockState(new BlockPos((int) x, (int) y, (int) (1 + z)))
-                    .canOcclude() && world.getBlockState(new BlockPos((int) x, (int) y, (int) (1 + z)))
-                    .getDestroySpeed(world, new BlockPos((int) x, (int) y, (int) (1 + z))) <= 1.5)
-                    world.setBlock(new BlockPos((int) x, (int) y, (int) (1 + z)), aBlocks.AMALGAM.get().defaultBlockState(), 3);
-            }
-            if (world.getBlockState(new BlockPos((int) x, (int) y, (int) (z - 1)))
-                    .canOcclude() && world.getBlockState(new BlockPos((int) x, (int) y, (int) (z - 1)))
-                    .getDestroySpeed(world, new BlockPos((int) x, (int) y, (int) (z - 1))) <= 1.5) {
-                    world.setBlock(new BlockPos((int) x, (int) y, (int) (z - 1)), aBlocks.AMALGAM.get().defaultBlockState(), 3);
+                    posX = x - 1;
+                    posY = y - 1;
+                    posZ = z - 1;
+
+                    for (int index0 = 0; index0 < (int) (3); index0++) {
+                        for (int index1 = 0; index1 < (int) (3); index1++) {
+                            for (int index2 = 0; index2 < (int) (3); index2++) {
+                                posX = posX + 1;
+                                    if (Math.random() < 0.5) {
+                                        if (world.getBlockState(new BlockPos((int) posX, (int) posY, (int) posZ))
+                                                .canOcclude() && world.getBlockState(new BlockPos((int) posX, (int) posY, (int) posZ))
+                                                .getDestroySpeed(world, new BlockPos((int) posX, (int) posY, (int) posZ)) <= 1.5 &&
+                                                (!((world.getBlockState(new BlockPos(posX, posY, posZ))).getBlock() == Blocks.BEDROCK)) &&
+                                                (((world.getBlockState(new BlockPos(posX, posY, posZ))).getMaterial() == Material.DIRT) ||
+                                                ((world.getBlockState(new BlockPos(posX, posY, posZ))).getMaterial() == Material.STONE) ||
+                                                ((world.getBlockState(new BlockPos(posX, posY, posZ))).getMaterial() == Material.SAND)))
+
+                                        {
+                                            if (Math.random() < 0.5) {
+                                            block = true;
+                                            world.setBlock(new BlockPos((int) posX, (int) posY, (int) posZ), aBlocks.AMALGAM.get().defaultBlockState(), 3);
+                                            if (block == true) {
+                                                break;
+                                            }
+                                    }
+                                }
+                            }
+                            posX = x - 1;
+                            posZ = posZ + 1;
+                            if (block == true) {
+                                break;
+                            }
+                        }
+                        posX = x - 1;
+                        posZ = z - 1;
+                        posY = posY + 1;
+                        if (block == true) {
+                            break;
+                        }
+                    }
                 }
-            if ((Math.random() < 0.2)) {
-                (world.getBlockState(new BlockPos(x, y + 1, z))).getBlock();
-                {
-                    world.setBlock(new BlockPos((int) x, (int) (1 + y), (int) z), aBlocks.AMALGAM_SPREAD.get().defaultBlockState(), 3);
-                }
-
             }
+
         }
     }
-    }
+}
+
 
 

@@ -1,6 +1,7 @@
 package com.harbinger.amalgament.aEntities;
 
-import com.harbinger.amalgament.aEntities.Entities.Glutton;
+import com.harbinger.amalgament.aEntities.Entities.monsters.Glutton;
+import com.harbinger.amalgament.aEntities.Entities.projectiles.fleshSpread;
 import com.harbinger.amalgament.amalgament;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -25,5 +26,13 @@ public class aEntities {
                     () -> EntityType.Builder.of(Glutton::new, MobCategory.MONSTER)
                             .sized(1.2f, 1.2f)
                             .build(new ResourceLocation(amalgament.MOD_ID, "glutton").toString()));
+
+    public static final RegistryObject<EntityType<fleshSpread>> FLESH =
+            AMALGA_ENTITIES.register("flesh",
+                    () -> EntityType.Builder.of(fleshSpread::new, MobCategory.MONSTER)
+                            .sized(0.3f, 0.3f)
+                            .build(new ResourceLocation(amalgament.MOD_ID, "flesh").toString()));
+
+
 
 }

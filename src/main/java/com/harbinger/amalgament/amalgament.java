@@ -2,6 +2,7 @@ package com.harbinger.amalgament;
 
 import com.harbinger.amalgament.aBlocks.aBlocks;
 import com.harbinger.amalgament.aEntities.Client.GluttonRenderer;
+import com.harbinger.amalgament.aEntities.Client.fleshSpreadRenderer;
 import com.harbinger.amalgament.aEntities.aEntities;
 import com.harbinger.amalgament.aItems.aItems;
 import com.harbinger.amalgament.config.aClientConfig;
@@ -48,7 +49,7 @@ public class amalgament
 
 
         EntityRenderers.register(aEntities.GLUTTON.get(), GluttonRenderer::new);
-
+        EntityRenderers.register(aEntities.FLESH.get(), fleshSpreadRenderer::new);
     }
     private void Setup( final FMLCommonSetupEvent event){
 

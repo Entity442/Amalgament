@@ -56,10 +56,10 @@ public class AmalgaSpread extends FlowerBlock implements SimpleWaterloggedBlock 
     public static class Place {
         public static boolean execute(LevelAccessor world, double x, double y, double z) {
             return world.getBlockState(new BlockPos(x, y - 1, z)).getDestroySpeed(world, new BlockPos(x, y, z)) <= 1.8
+                    || ((world.getBlockState(new BlockPos(x, y - 1, z))).getBlock() == aBlocks.AMALGAM.get()
                     && world.getBlockState(new BlockPos(x, y - 1, z)).canOcclude()
                     && !(((world.getBlockState(new BlockPos(x, y - 1, z))).getBlock() == Blocks.MAGMA_BLOCK)
-            || ((world.getBlockState(new BlockPos(x, y - 1, z))).getBlock() == aBlocks.AMALGAM_SPREAD.get())
-            || ((world.getBlockState(new BlockPos(x, y - 1, z))).getBlock() == aBlocks.AMALGAM.get()));
+            || ((world.getBlockState(new BlockPos(x, y - 1, z))).getBlock() == aBlocks.AMALGAM_SPREAD.get())));
         }
     }
 

@@ -1,6 +1,6 @@
 package com.harbinger.amalgament.aEntities.Client;
 
-import com.harbinger.amalgament.aEntities.Entities.Glutton;
+import com.harbinger.amalgament.aEntities.Entities.monsters.Glutton;
 import com.harbinger.amalgament.amalgament;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;

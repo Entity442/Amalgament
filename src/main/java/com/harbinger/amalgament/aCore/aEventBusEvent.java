@@ -1,6 +1,7 @@
 package com.harbinger.amalgament.aCore;
 
-import com.harbinger.amalgament.aEntities.Entities.Glutton;
+import com.harbinger.amalgament.aEntities.Entities.monsters.Glutton;
+import com.harbinger.amalgament.aEntities.Entities.projectiles.fleshSpread;
 import com.harbinger.amalgament.aEntities.aEntities;
 import com.harbinger.amalgament.amalgament;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -13,5 +14,7 @@ public class aEventBusEvent {
     @SubscribeEvent
     public static void entityAttributeEvent(EntityAttributeCreationEvent event) {
         event.put(aEntities.GLUTTON.get(), Glutton.setAttributes());
-    }
+        event.put(aEntities.FLESH.get(), fleshSpread.setAttributes());
+
+}
 }
