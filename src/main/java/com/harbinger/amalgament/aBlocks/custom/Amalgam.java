@@ -51,13 +51,12 @@ public class Amalgam extends Block {
                 double posZ = 0;
                 if (Math.random() < 0.01) {
                     posX = x - 1;
-                    posY = y - 1;
+                    posY = y - 2;
                     posZ = z - 1;
                     for (int index0 = 0; index0 < (int) (3); index0++) {
                         for (int index1 = 0; index1 < (int) (3); index1++) {
                             for (int index2 = 0; index2 < (int) (3); index2++) {
                                 posX = posX + 1;
-                                if (Math.random() < 0.5) {
                                     if (world.getBlockState(new BlockPos((int) posX, (int) posY, (int) posZ))
                                             .canOcclude() && world.getBlockState(new BlockPos((int) posX, (int) posY, (int) posZ))
                                             .getDestroySpeed(world, new BlockPos((int) posX, (int) posY, (int) posZ)) <= 1.5 &&
@@ -66,11 +65,10 @@ public class Amalgam extends Block {
                                                     ((world.getBlockState(new BlockPos(posX, posY, posZ))).getMaterial() == Material.DIRT) ||
                                                     ((world.getBlockState(new BlockPos(posX, posY, posZ))).getMaterial() == Material.STONE) ||
                                                     ((world.getBlockState(new BlockPos(posX, posY, posZ))).getMaterial() == Material.SAND)))
-                                        if (Math.random() < 0.5) {
+                                        if (Math.random() < 0.25) {
                                             world.setBlock(new BlockPos((int) posX, (int) posY, (int) posZ), aBlocks.AMALGAM.get().defaultBlockState(), 3);
+                                        }}
 
-                                        }
-                                }
                                 posX = x - 1;
                                 posZ = posZ + 1;
                             }
@@ -85,6 +83,6 @@ public class Amalgam extends Block {
             }
         }
     }
-}
+
 
 
